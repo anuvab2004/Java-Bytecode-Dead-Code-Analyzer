@@ -55,14 +55,15 @@
                     </execution>
                 </executions>
             </plugin>
-
+            
+            <!-- Either remove this or fix it -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>11</source>  <!-- MUST BE 11 -->
+                    <target>11</target>  <!-- MUST BE 11 -->
                 </configuration>
             </plugin>
         </plugins>
