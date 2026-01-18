@@ -1,12 +1,13 @@
-# Build stage - uses Maven to compile
-FROM maven:3.8.4-openjdk-11-slim AS build
+# Build stage
+FROM maven:3.8.4-openjdk-11 AS build
 WORKDIR /app
-COPY . .
+COPY pom.xml .
+COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Run stage - uses slim JRE
-FROM openjdk:11.0-jre-slim
+# Run stage - Use Adoptium/Temurin (officially supported)
+FROM eclipse-temurin:11-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/Java-Bytecode-Dead-Code-Analyzer-*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
